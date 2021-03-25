@@ -20,7 +20,7 @@ namespace Build1.BuildNumber.Editor
             }
                 
             if (BuildNumberProcessor.TryUpdateBuildNumberFromProjectSettings())
-                Debug.Log("BuildNumber: build number updated in Player Settings");
+                Debug.Log("BuildNumber: Build number updated in Player Settings");
         }
 
         public void OnPostprocessBuild(BuildReport report)

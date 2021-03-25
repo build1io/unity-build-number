@@ -139,7 +139,7 @@ namespace Build1.BuildNumber.Editor
 
             System.IO.File.WriteAllText(path, buildNumberString);
 
-            Debug.Log($"BuildNumber: {buildNumber}");
+            Debug.Log($"BuildNumber: Set to {buildNumber}");
         }
     }
 }
