@@ -6,18 +6,46 @@ namespace Build1.BuildNumber.Editor
 {
     internal static class BuildNumberMenu
     {
-        private const string AutoIncrementMenuItem = "Build1/Build Number/Auto Increment";
+        private const string AutoIncrementEnabledMenuItem = "Build1/Build Number/Auto Increment/Enable";
+        private const string AutoIncrementDisableMenuItem = "Build1/Build Number/Auto Increment/Disable";
         
         static BuildNumberMenu()
         {
             EditorApplication.delayCall += UpdateMenu; 
         }
         
-        [MenuItem(AutoIncrementMenuItem, false, 20)]
-        public static void AutoIncrement()
+        [MenuItem(AutoIncrementEnabledMenuItem, false, 20)]
+        public static void AutoIncrementEnabled()
         {
-            if (BuildNumberProcessor.SetAutoIncrementEnabled(!BuildNumberProcessor.GetAutoIncrementEnabled()))
+            if (BuildNumberProcessor.SetAutoIncrementEnabled(true))
                 UpdateMenu();
+        }
+
+        [MenuItem(AutoIncrementEnabledMenuItem, true, 21)]
+        public static bool AutoIncrementEnabledValidation()
+        {
+            return !BuildNumberProcessor.GetAutoIncrementEnabled();
+        }
+        
+        [MenuItem(AutoIncrementDisableMenuItem, false, 21)]
+        public static void AutoIncrementDisabled()
+        {
+            if (BuildNumberProcessor.SetAutoIncrementEnabled(false))
+                UpdateMenu();
+        }
+        
+        [MenuItem(AutoIncrementDisableMenuItem, true, 21)]
+        public static bool AutoIncrementDisabledValidation()
+        {
+            return BuildNumberProcessor.GetAutoIncrementEnabled();
+        }
+
+        [MenuItem("Build1/Build Number/Auto Increment/Info", false, 50)]
+        public static void AutoIncrementInfo()
+        {
+            EditorUtility.DisplayDialog("Auto Increment",
+                                        "When Enabled, increments build number and updates Player Settings if applicable for current platform.", 
+                                        "Got it!");
         }
         
         [MenuItem("Build1/Build Number/Increment", false, 70)]
@@ -50,7 +78,9 @@ namespace Build1.BuildNumber.Editor
 
         private static void UpdateMenu()
         {
-            Menu.SetChecked(AutoIncrementMenuItem, BuildNumberProcessor.GetAutoIncrementEnabled());
+            var enabled = BuildNumberProcessor.GetAutoIncrementEnabled();
+            Menu.SetChecked(AutoIncrementEnabledMenuItem, enabled);
+            Menu.SetChecked(AutoIncrementDisableMenuItem, !enabled);
         }
     }
 }
