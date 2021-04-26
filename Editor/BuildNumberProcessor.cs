@@ -10,7 +10,7 @@ namespace Build1.BuildNumber.Editor
     {
         public const string AutoIncrementEnabledKey = "Build1_BuildNumber_AutoIncrementEnabled";
 
-        private const string BuildNumberFileFullName = BuildNumber.BuildNumberFileName + ".txt";
+        private const string BuildNumberFileFullName = BuildNumber.FileName + ".txt";
         private const string BuildNumberFolderPath   = "/Resources";
         private const string BuildNumberFilePath     = BuildNumberFolderPath + "/" + BuildNumberFileFullName;
 
