@@ -2,7 +2,7 @@
 
 using UnityEditor;
 
-namespace Build1.BuildNumber.Editor
+namespace Build1.UnityBuildNumber.Editor
 {
     internal static class BuildNumberMenu
     {

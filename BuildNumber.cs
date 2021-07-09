@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Build1.BuildNumber
+namespace Build1.UnityBuildNumber
 {
     public static class BuildNumber
     {
