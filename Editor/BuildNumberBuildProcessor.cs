@@ -5,7 +5,7 @@ using UnityEditor.Build;
 using UnityEditor.Build.Reporting;
 using UnityEngine;
 
-namespace Build1.BuildNumber.Editor
+namespace Build1.UnityBuildNumber.Editor
 {
     internal sealed class BuildNumberBuildProcessor : IPreprocessBuildWithReport, IPostprocessBuildWithReport
     {

@@ -4,7 +4,7 @@ using System;
 using UnityEditor;
 using UnityEngine;
 
-namespace Build1.BuildNumber.Editor
+namespace Build1.UnityBuildNumber.Editor
 {
     internal abstract class BuildNumberProcessor
     {
