@@ -39,8 +39,7 @@ namespace Build1.BuildNumber.Editor
                 buildNumber = ReadBuildNumberFromFile();    
 
             buildNumber = Mathf.Max(buildNumber + 1, 0);
-            TrySetBuildNumberToPlayerSettings(buildNumber);
-            WriteBuildNumberToFile(buildNumber);
+            Set(buildNumber);
         }
 
         public static void Decrement()
@@ -49,6 +48,11 @@ namespace Build1.BuildNumber.Editor
                 buildNumber = ReadBuildNumberFromFile();
 
             buildNumber = Mathf.Max(buildNumber - 1, 0);
+            Set(buildNumber);
+        }
+
+        public static void Set(int buildNumber)
+        {
             TrySetBuildNumberToPlayerSettings(buildNumber);
             WriteBuildNumberToFile(buildNumber);
         }
