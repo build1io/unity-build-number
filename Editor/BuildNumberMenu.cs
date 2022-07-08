@@ -6,8 +6,8 @@ namespace Build1.UnityBuildNumber.Editor
 {
     internal static class BuildNumberMenu
     {
-        private const string AutoIncrementEnabledMenuItem = "Build1/Build Number/Auto Increment/Enable";
-        private const string AutoIncrementDisableMenuItem = "Build1/Build Number/Auto Increment/Disable";
+        private const string AutoIncrementEnabledMenuItem = "Tools/Build1/Build Number/Auto Increment/Enable";
+        private const string AutoIncrementDisableMenuItem = "Tools/Build1/Build Number/Auto Increment/Disable";
         
         static BuildNumberMenu()
         {
