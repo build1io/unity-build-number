@@ -40,7 +40,7 @@ namespace Build1.UnityBuildNumber.Editor
             return BuildNumberProcessor.GetAutoIncrementEnabled();
         }
 
-        [MenuItem("Build1/Build Number/Auto Increment/Info", false, 50)]
+        [MenuItem("Tools/Build1/Build Number/Auto Increment/Info", false, 50)]
         public static void AutoIncrementInfo()
         {
             EditorUtility.DisplayDialog("Auto Increment",
@@ -48,19 +48,19 @@ namespace Build1.UnityBuildNumber.Editor
                                         "Got it!");
         }
         
-        [MenuItem("Build1/Build Number/Increment", false, 70)]
+        [MenuItem("Tools/Build1/Build Number/Increment", false, 70)]
         public static void Increment()
         {
             BuildNumberProcessor.Increment();
         }
         
-        [MenuItem("Build1/Build Number/Decrement", false, 71)]
+        [MenuItem("Tools/Build1/Build Number/Decrement", false, 71)]
         public static void Decrement()
         {
             BuildNumberProcessor.Decrement();
         }
 
-        [MenuItem("Build1/Build Number/Reset", false, 120)]
+        [MenuItem("Tools/Build1/Build Number/Reset", false, 120)]
         public static void Reset()
         {
             var currentBuildNumber = BuildNumber.Get();
