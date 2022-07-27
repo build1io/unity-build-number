@@ -3,9 +3,11 @@
 using System;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.Windows;
 
 namespace Build1.UnityBuildNumber.Editor
 {
+    [InitializeOnLoad]
     internal abstract class BuildNumberProcessor
     {
         public const string AutoIncrementEnabledKey = "Build1_BuildNumber_AutoIncrementEnabled";
@@ -14,6 +16,12 @@ namespace Build1.UnityBuildNumber.Editor
         private const string BuildNumberFolderPath   = "/Resources";
         private const string BuildNumberFilePath     = BuildNumberFolderPath + "/" + BuildNumberFileFullName;
 
+        static BuildNumberProcessor()
+        {
+            if (!File.Exists(BuildNumberFilePath))
+                WriteBuildNumberToFile(TryGetBuildNumberFromPlayerSettings(out var buildNumber) ? buildNumber : 1);
+        }
+        
         public static bool GetAutoIncrementEnabled()
         {
             return EditorPrefs.GetBool(AutoIncrementEnabledKey);
@@ -38,7 +46,7 @@ namespace Build1.UnityBuildNumber.Editor
             if (!TryGetBuildNumberFromPlayerSettings(out var buildNumber))
                 buildNumber = ReadBuildNumberFromFile();    
 
-            buildNumber = Mathf.Max(buildNumber + 1, 0);
+            buildNumber = Mathf.Max(buildNumber + 1, 1);
             Set(buildNumber);
         }
 
@@ -47,7 +55,7 @@ namespace Build1.UnityBuildNumber.Editor
             if (!TryGetBuildNumberFromPlayerSettings(out var buildNumber))
                 buildNumber = ReadBuildNumberFromFile();
 
-            buildNumber = Mathf.Max(buildNumber - 1, 0);
+            buildNumber = Mathf.Max(buildNumber - 1, 1);
             Set(buildNumber);
         }
 
@@ -55,19 +63,27 @@ namespace Build1.UnityBuildNumber.Editor
         {
             TrySetBuildNumberToPlayerSettings(buildNumber);
             WriteBuildNumberToFile(buildNumber);
+            
+            Debug.Log($"BuildNumber: Set to {buildNumber}");
         }
 
         public static void Reset()
         {
-            TrySetBuildNumberToPlayerSettings(0);
-            WriteBuildNumberToFile(0);
+            TrySetBuildNumberToPlayerSettings(1);
+            WriteBuildNumberToFile(1);
+            
+            Debug.Log("BuildNumber: Set to 1");
         }
 
         public static bool TryUpdateBuildNumberFromProjectSettings()
         {
             if (!TryGetBuildNumberFromPlayerSettings(out var buildNumber)) 
                 return false;
+            
             WriteBuildNumberToFile(buildNumber);
+            
+            Debug.Log($"BuildNumber: Set to {buildNumber}");
+            
             return true;
         }
 
@@ -100,30 +116,27 @@ namespace Build1.UnityBuildNumber.Editor
 
         private static bool TrySetBuildNumberToPlayerSettings(int buildNumber)
         {
-            var target = EditorUserBuildSettings.activeBuildTarget;
-            switch (target)
-            {
-                case BuildTarget.iOS:
-                    PlayerSettings.iOS.buildNumber = buildNumber.ToString();
-                    return true;
-
-                case BuildTarget.Android:
-                    PlayerSettings.Android.bundleVersionCode = buildNumber;
-                    return true;
-
-                // WebGL doesn't have build number in PlayerSettings.
-                case BuildTarget.WebGL:
-                    return false;
-
-                // Exception for future platforms.
-                default:
-                    throw new Exception($"BuildNumber: Not implemented for build target [{target}]");
-            }
+            PlayerSettings.iOS.buildNumber = buildNumber.ToString();
+            PlayerSettings.Android.bundleVersionCode = buildNumber;
+            
+            AssetDatabase.SaveAssets();
+            
+            return true;
         }
+        
+        /*
+         * File.
+         */
 
         private static int ReadBuildNumberFromFile()
         {
-            return BuildNumber.Get();
+            if (File.Exists(BuildNumberFilePath))
+            {
+                var content = System.IO.File.ReadAllText(BuildNumberFilePath);
+                if (int.TryParse(content, out var buildNumber))
+                    return buildNumber;    
+            }
+            return 0;
         }
         
         private static void WriteBuildNumberToFile(int buildNumber)
@@ -142,8 +155,6 @@ namespace Build1.UnityBuildNumber.Editor
                 System.IO.Directory.CreateDirectory(folderPath);
 
             System.IO.File.WriteAllText(path, buildNumberString);
-
-            Debug.Log($"BuildNumber: Set to {buildNumber}");
         }
     }
 }
