@@ -1,6 +1,5 @@
 #if UNITY_EDITOR
 
-using System;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Windows;
@@ -110,7 +109,9 @@ namespace Build1.UnityBuildNumber.Editor
 
                 // Exception for future platforms.
                 default:
-                    throw new Exception($"BuildNumber: Not implemented for build target [{target}]");
+                    Debug.LogError($"BuildNumber: Not implemented for build target [{target}]");
+                    buildNumber = -1;
+                    return false;
             }
         }
 
