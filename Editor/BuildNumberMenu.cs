@@ -72,6 +72,12 @@ namespace Build1.UnityBuildNumber.Editor
                 BuildNumberProcessor.Reset();
         }
         
+        [MenuItem("Tools/Build1/Build Number/Tool Window...", false, 150)]
+        public static void ToolsWindow()
+        {
+            BuildNumberWindow.Open();
+        }
+        
         /*
          * Private.
          */

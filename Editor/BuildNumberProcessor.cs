@@ -15,11 +15,20 @@ namespace Build1.UnityBuildNumber.Editor
         private const string BuildNumberFolderPath   = "/Resources";
         private const string BuildNumberFilePath     = BuildNumberFolderPath + "/" + BuildNumberFileFullName;
 
+        public static int Number { get; private set; } = -1;
+
         static BuildNumberProcessor()
         {
             if (!File.Exists(BuildNumberFilePath))
                 WriteBuildNumberToFile(TryGetBuildNumberFromPlayerSettings(out var buildNumber) ? buildNumber : 1);
+
+            if (Number < 0)
+                Number = BuildNumber.Get();
         }
+        
+        /*
+         * Auto Increment.
+         */
         
         public static bool GetAutoIncrementEnabled()
         {
@@ -40,6 +49,10 @@ namespace Build1.UnityBuildNumber.Editor
             return true;
         }
 
+        /*
+         * Editing.
+         */
+        
         public static void Increment()
         {
             if (!TryGetBuildNumberFromPlayerSettings(out var buildNumber))
@@ -62,6 +75,8 @@ namespace Build1.UnityBuildNumber.Editor
         {
             TrySetBuildNumberToPlayerSettings(buildNumber);
             WriteBuildNumberToFile(buildNumber);
+
+            Number = buildNumber;
             
             Debug.Log($"BuildNumber: Set to {buildNumber}");
         }
@@ -70,6 +85,8 @@ namespace Build1.UnityBuildNumber.Editor
         {
             TrySetBuildNumberToPlayerSettings(1);
             WriteBuildNumberToFile(1);
+            
+            Number = 0;
             
             Debug.Log("BuildNumber: Set to 1");
         }
