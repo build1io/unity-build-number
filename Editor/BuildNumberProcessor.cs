@@ -91,18 +91,6 @@ namespace Build1.UnityBuildNumber.Editor
             Debug.Log("BuildNumber: Set to 1");
         }
 
-        public static bool TryUpdateBuildNumberFromProjectSettings()
-        {
-            if (!TryGetBuildNumberFromPlayerSettings(out var buildNumber)) 
-                return false;
-            
-            WriteBuildNumberToFile(buildNumber);
-            
-            Debug.Log($"BuildNumber: Set to {buildNumber}");
-            
-            return true;
-        }
-
         /*
          * Private.
          */

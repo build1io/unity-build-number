@@ -13,14 +13,12 @@ namespace Build1.UnityBuildNumber.Editor
 
         public void OnPreprocessBuild(BuildReport report)
         {
-            if (BuildNumberProcessor.GetAutoIncrementEnabled())
-            {
-                Debug.Log("BuildNumber: Auto Increment");
-                BuildNumberProcessor.Increment();
-            }
-                
-            if (BuildNumberProcessor.TryUpdateBuildNumberFromProjectSettings())
-                Debug.Log("BuildNumber: Build number updated in Player Settings");
+            if (!BuildNumberProcessor.GetAutoIncrementEnabled())
+                return;
+            
+            Debug.Log("BuildNumber: Auto Increment");
+            
+            BuildNumberProcessor.Increment();
         }
 
         public void OnPostprocessBuild(BuildReport report)
