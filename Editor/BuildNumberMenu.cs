@@ -14,33 +14,33 @@ namespace Build1.UnityBuildNumber.Editor
             EditorApplication.delayCall += UpdateMenu; 
         }
         
-        [MenuItem(AutoIncrementEnabledMenuItem, false, 20)]
+        [MenuItem(AutoIncrementEnabledMenuItem, false, 1020)]
         public static void AutoIncrementEnabled()
         {
             if (BuildNumberProcessor.SetAutoIncrementEnabled(true))
                 UpdateMenu();
         }
 
-        [MenuItem(AutoIncrementEnabledMenuItem, true, 21)]
+        [MenuItem(AutoIncrementEnabledMenuItem, true, 1021)]
         public static bool AutoIncrementEnabledValidation()
         {
             return !BuildNumberProcessor.GetAutoIncrementEnabled();
         }
         
-        [MenuItem(AutoIncrementDisableMenuItem, false, 21)]
+        [MenuItem(AutoIncrementDisableMenuItem, false, 1021)]
         public static void AutoIncrementDisabled()
         {
             if (BuildNumberProcessor.SetAutoIncrementEnabled(false))
                 UpdateMenu();
         }
         
-        [MenuItem(AutoIncrementDisableMenuItem, true, 21)]
+        [MenuItem(AutoIncrementDisableMenuItem, true, 1021)]
         public static bool AutoIncrementDisabledValidation()
         {
             return BuildNumberProcessor.GetAutoIncrementEnabled();
         }
 
-        [MenuItem("Tools/Build1/Build Number/Auto Increment/Info", false, 50)]
+        [MenuItem("Tools/Build1/Build Number/Auto Increment/Info", false, 1050)]
         public static void AutoIncrementInfo()
         {
             EditorUtility.DisplayDialog("Auto Increment",
@@ -48,19 +48,19 @@ namespace Build1.UnityBuildNumber.Editor
                                         "Got it!");
         }
         
-        [MenuItem("Tools/Build1/Build Number/Increment", false, 70)]
+        [MenuItem("Tools/Build1/Build Number/Increment", false, 1070)]
         public static void Increment()
         {
             BuildNumberProcessor.Increment();
         }
         
-        [MenuItem("Tools/Build1/Build Number/Decrement", false, 71)]
+        [MenuItem("Tools/Build1/Build Number/Decrement", false, 1071)]
         public static void Decrement()
         {
             BuildNumberProcessor.Decrement();
         }
 
-        [MenuItem("Tools/Build1/Build Number/Reset", false, 120)]
+        [MenuItem("Tools/Build1/Build Number/Reset", false, 1120)]
         public static void Reset()
         {
             var currentBuildNumber = BuildNumber.Get();
@@ -72,7 +72,7 @@ namespace Build1.UnityBuildNumber.Editor
                 BuildNumberProcessor.Reset();
         }
         
-        [MenuItem("Tools/Build1/Build Number/Tool Window...", false, 150)]
+        [MenuItem("Tools/Build1/Build Number/Tool Window...", false, 1150)]
         public static void ToolsWindow()
         {
             BuildNumberWindow.Open();
