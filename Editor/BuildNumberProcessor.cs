@@ -56,8 +56,7 @@ namespace Build1.UnityBuildNumber.Editor
         public static void Increment()
         {
             if (!TryGetBuildNumberFromPlayerSettings(out var buildNumber))
-                buildNumber = ReadBuildNumberFromFile();    
-
+                buildNumber = ReadBuildNumberFromFile();
             buildNumber = Mathf.Max(buildNumber + 1, 1);
             Set(buildNumber);
         }
@@ -136,9 +135,10 @@ namespace Build1.UnityBuildNumber.Editor
 
         private static int ReadBuildNumberFromFile()
         {
-            if (File.Exists(BuildNumberFilePath))
+            var path = Application.dataPath + BuildNumberFilePath;
+            if (File.Exists(path))
             {
-                var content = System.IO.File.ReadAllText(BuildNumberFilePath);
+                var content = System.IO.File.ReadAllText(path);
                 if (int.TryParse(content, out var buildNumber))
                     return buildNumber;    
             }
