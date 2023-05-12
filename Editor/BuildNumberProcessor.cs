@@ -19,11 +19,11 @@ namespace Build1.UnityBuildNumber.Editor
 
         static BuildNumberProcessor()
         {
-            if (!File.Exists(BuildNumberFilePath))
+            var path = Application.dataPath + BuildNumberFilePath;
+            if (!File.Exists(path))
                 WriteBuildNumberToFile(TryGetBuildNumberFromPlayerSettings(out var buildNumber) ? buildNumber : 1);
-
-            if (Number < 0)
-                Number = BuildNumber.Get();
+            
+            Number = ReadBuildNumberFromFile();
         }
         
         /*
